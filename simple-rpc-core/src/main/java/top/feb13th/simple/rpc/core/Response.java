@@ -1,13 +1,19 @@
 package top.feb13th.simple.rpc.core;
 
-import java.util.HashMap;
-import java.util.Map;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 数据请求对象
  *
  * @author feb13th
  */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Response {
 
   /**
@@ -18,34 +24,10 @@ public class Response {
   /**
    * 方法的hash code
    */
-  private int methodHashCode;
+  private String path;
 
   /**
    * 方法返回值
    */
   private Object object;
-
-  public long getUniqueId() {
-    return uniqueId;
-  }
-
-  public void setUniqueId(long uniqueId) {
-    this.uniqueId = uniqueId;
-  }
-
-  public int getMethodHashCode() {
-    return methodHashCode;
-  }
-
-  public void setMethodHashCode(int methodHashCode) {
-    this.methodHashCode = methodHashCode;
-  }
-
-  public Object getObject() {
-    return object;
-  }
-
-  public void setObject(Object object) {
-    this.object = object;
-  }
 }

@@ -3,11 +3,20 @@ package top.feb13th.simple.rpc.core;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * 数据请求对象
  *
  * @author feb13th
  */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Request {
 
   /**
@@ -16,36 +25,12 @@ public class Request {
   private long uniqueId;
 
   /**
-   * 方法的hash code
+   * 请求的路径
    */
-  private int methodHashCode;
+  private String path;
 
   /**
    * 方法参数对应的值
    */
   private Map<String, Object> data = new HashMap<>();
-
-  public long getUniqueId() {
-    return uniqueId;
-  }
-
-  public void setUniqueId(long uniqueId) {
-    this.uniqueId = uniqueId;
-  }
-
-  public int getMethodHashCode() {
-    return methodHashCode;
-  }
-
-  public void setMethodHashCode(int methodHashCode) {
-    this.methodHashCode = methodHashCode;
-  }
-
-  public Map<String, Object> getData() {
-    return data;
-  }
-
-  public void setData(Map<String, Object> data) {
-    this.data = data;
-  }
 }
