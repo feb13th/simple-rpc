@@ -18,6 +18,8 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import top.feb13th.simple.rpc.core.convert.Convert;
 import top.feb13th.simple.rpc.core.convert.KryoConvert;
+import top.feb13th.simple.rpc.server.codec.RequestDecoder;
+import top.feb13th.simple.rpc.server.codec.ResponseEncoder;
 
 /**
  * rpc 服务器
@@ -28,8 +30,15 @@ public class SimpleServer extends ServicePool implements Runnable, Closeable {
 
   // 端口
   private final int port;
+
+  // config
   @Setter
-  private Convert convert = new KryoConvert(1024 * 1024);
+  private int timeout = 16;
+  @Setter
+  private int messageMaxLength = 1024 * 1024;
+
+  @Setter
+  private Convert convert = new KryoConvert(messageMaxLength);
 
   // loop
   private final EventLoopGroup bossEventLoop;
@@ -57,9 +66,11 @@ public class SimpleServer extends ServicePool implements Runnable, Closeable {
         .childHandler(new ChannelInitializer<SocketChannel>() {
           @Override
           protected void initChannel(SocketChannel ch) {
-            ch.pipeline().addLast(new IdleStateHandler(16, 0, 0));
-            ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024 * 1024 + 4, 0, 4, 0, 4));
-            ch.pipeline().addLast(new ServiceDispatcher(convert, SimpleServer.this));
+            ch.pipeline().addLast(new IdleStateHandler(timeout, 0, 0));
+            ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(messageMaxLength + 4, 0, 4, 0, 4));
+            ch.pipeline().addLast(new RequestDecoder(convert));
+            ch.pipeline().addLast(new ResponseEncoder(convert));
+            ch.pipeline().addLast(new RequestDispatcher(SimpleServer.this));
           }
         })
         .option(ChannelOption.SO_BACKLOG, 128)

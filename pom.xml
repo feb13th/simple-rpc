@@ -12,6 +12,9 @@
     <module>simple-rpc-core</module>
     <module>simple-rpc-server</module>
     <module>simple-rpc-client</module>
+    <module>simple-rpc-example-api</module>
+    <module>simple-rpc-example-service</module>
+    <module>simple-rpc-example-client</module>
   </modules>
   
   <properties>

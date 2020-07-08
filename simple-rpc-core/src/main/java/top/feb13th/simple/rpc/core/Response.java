@@ -22,7 +22,7 @@ public class Response {
   private long uniqueId;
 
   /**
-   * 方法的hash code
+   * 请求路径
    */
   private String path;
 

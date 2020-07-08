@@ -11,21 +11,18 @@
   <version>${revision}</version>
   <packaging>jar</packaging>
 
-  <artifactId>simple-rpc-core</artifactId>
+  <artifactId>simple-rpc-example-service</artifactId>
 
   <dependencies>
     <dependency>
-      <groupId>com.esotericsoftware</groupId>
-      <artifactId>kryo</artifactId>
+      <groupId>top.feb13th</groupId>
+      <artifactId>simple-rpc-example-api</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
+      <groupId>top.feb13th</groupId>
+      <artifactId>simple-rpc-server</artifactId>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
 
